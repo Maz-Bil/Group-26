@@ -91,3 +91,53 @@ Key features include:
     cast send <USER_ADDRESS> "myFunction(uint256)" 42 \
       --private-key <PRIVATE_KEY>
 
+📘 Instructor Q&A
+
+Below are clarifications to common conceptual questions asked during review.
+
+❓ What consensus mechanism does the project use?
+
+The system is deployed on the Ethereum network, which uses Proof of Stake (PoS). For this proof-of-concept, we do not modify consensus. Instead, we focus on demonstrating supply-chain logic, immutability, event logging, and authorization. In production, the system could run on Ethereum L2s or a permissioned chain like Hyperledger Fabric.
+
+❓ How many channels are used?
+
+The system uses a single shared ledger (“one channel”). Ethereum does not support Hyperledger-style channels. Instead, role-based access control ensures data separation within one canonical smart contract.
+
+❓ What makes this system different from existing blockchain supply-chain solutions?
+
+Our design introduces:
+
+Layered authenticity
+Raw materials → batches → transfers → final dispensing
+Each stage is validated and cryptographically logged.
+
+Individualized role permissions
+Manufacturers, distributors, pharmacists, and regulators are individually assigned roles through grantRole(), enabling fine-grained access control.
+
+Event-driven traceability
+Every major action emits structured logs, enabling full auditing via transaction receipts.
+
+End-to-end provenance
+The system traces the complete lifecycle:
+raw inputs → manufacturing → custody transfers → pharmacist dispensing.
+
+This goes beyond many systems that only track products at a single stage.
+
+
+❓ Why use blockchain instead of a traditional database?
+
+Blockchain provides:
+
+Immutability – no participant can modify historical supply-chain data.
+
+Trustless coordination – manufacturers, distributors, and pharmacies do not need to trust each other.
+
+Regulatory alignment – DSCSA and similar regulations require secure, auditable traceability.
+
+Cryptographic integrity – event logs encode actor identity, timestamps, and data changes.
+
+These guarantees cannot be replicated by a centralized database.
+
+❓ What did you learn from this project?
+
+We learned how blockchain can be used to create a tamper-proof, event-driven supply-chain system with fine-grained role management. Implementing the project deepened our understanding of smart contract development, event logs, transaction flows, and the importance of layered authenticity in pharmaceutical provenance. We also learned how to design systems that balance usability, security, gas efficiency, and regulatory requirements.
